@@ -27,16 +27,18 @@ let sleeping = new Promise((sucess, error) => {
 });
 
 eating.then(
-  (resolve) => console.log(resolve),
-  (rejected) => console.log(rejected)
-);
-
-playing.then(
-  (resolve) => console.log(resolve),
-  (rejected) => console.log(rejected)
-);
-
-sleeping.then(
-  (resolve) => console.log(resolve),
+  (resolve) => {
+    console.log(resolve);
+    playing.then(
+      (resolve) => {
+        console.log(resolve);
+        sleeping.then(
+          (resolve) => console.log(resolve),
+          (rejected) => console.log(rejected)
+        );
+      },
+      (rejected) => console.log(rejected)
+    );
+  },
   (rejected) => console.log(rejected)
 );
